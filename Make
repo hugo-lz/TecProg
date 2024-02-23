@@ -1,0 +1,30 @@
+#------------------------------------------------------------------------------
+# File:   Makefile
+# Author: Programación II-Unizar
+# Date:   febrero 2022
+# Coms:   Ejemplo de Makefile (Make_pruebas01) para la práctica 2 de Programación II
+#------------------------------------------------------------------------------
+
+#---------------------------------------------------------
+# Definición de macros
+CC = g++
+CPPFLAGS = -std=c++11      #opciones de compilación
+LDFLAGS =                      #opciones de linkado
+RM = rm -f                     #comando para borrar ficheros
+
+all: main
+#-----------------------------------------------------------
+# Compilacion
+main.o: main.cpp 
+	${CC} -c main.cpp ${CPPFLAGS}
+# Linkado
+main: main.o instruccionesPtr.o programa.o
+	${CC} pruebas02.o funcionesPilaEnt.o pilaEnt.o -I ../funciones -o pruebas02 ${LDFLAGS}
+instruccionesPtr.o: instruccionesPtr.cpp instruccionesPtr.hpp 
+	${CC} -c funcionesPilaEnt.cpp -I ../funciones ${CPPFLAGS}
+programa.o: programa.cpp programa.hpp
+	${CC} -c ../funciones/pilaEnt.cpp -I ../funciones ${CPPFLAGS}
+#-----------------------------------------------------------	
+# LIMPIEZA de todo lo generado. Ojo: se borrarán sin preguntar
+clean:
+	${RM} pilaEnt.o funcionesPilaEnt.o pruebas02.o pruebas02
